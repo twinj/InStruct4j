@@ -17,18 +17,20 @@ Currently only support little endian.
 This engine allows you to create parsing strategies via the [TParser.Strategy] interface. Several parsers can be created
 for several files or arrays. A TParser caches whichever values you need in between stream use. 
 
-Each datum or variable read can be tested and edited for individual behaviours.
+Each [Datum] or variable read can be tested and edited for individual behaviours.
 
 Features
 -----
-> Java 7
-> Datum Precondition asserting
-> Datum Postcondition asserting
-> Datum flags which switch display, caching and memory behaviour.
-> Handles many data types and sizes; E.g. DWORD, UINT32, WORD, BYTE, QWORD, ULONG64, FLAGS, ENUMS... if a datatype does 
-not exist it can be created very easily following the design pattern.
+> - Written using Java 7 auto closeable interfaces and NIO.
+> - Datum Precondition asserting
+> - Datum Postcondition asserting
+> - Datum Pre requisties can be plugged in
+> - Datum flags which switch; display, caching and memory behaviour.
+> - Handles many data types and sizes; E.g. DWORD, UINT32, WORD, BYTE, QWORD, ULONG64, FLAGS, ENUMS... if a datatype 
+does not exist it can be created very easily following the [IDatum] design pattern.
 
-Below is an example which showcases most of the features.  A proper feature set will be released as the parser becomes more specialised. 
+Below is an example which showcases most of the features.  A more complete feature set will be released as the parser 
+becomes more specialised. 
 
 Future
 ---
@@ -92,15 +94,11 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		
     		/**
     		 * Number of imported objects in the import table. Always >= 0.
-    		 * 
-    		 * Legacy
     		 */
     		IMPORTS_COUNT(DWORD.create("Imports Count")),
     		
     		/**
     		 * Offset of import-table within the file
-    		 * 
-    		 * Legacy
     		 */
     		IMPORTS_OFFSET(DWORD.create("Imports Offset")),
     				
@@ -114,9 +112,9 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		
     		/**
     		 * A Guuid For this constant to work I must have extended ATStruct and ATGuuid. The new Guuid class is then       
-             * initialised into a constant. This is how all of the default constants are created in ATStruct.
+         * initialised into a constant. This is how all of the default constants are created in ATStruct.
     		 * Versions: >= 68
-             * Another way is to create it manually using new MyGuuid().create...
+         * Another way is to create it manually using new MyGuuid().create...
     		 */
     		PACKAGE_GUID(GUID.create("Package Guid"), new AssertVersionGTEQ(68)),
     		
@@ -127,7 +125,7 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		
     		/**
     		 * Version >= 68
-             * This example shows where a pre requisite value is required to determine how the parser should proceed.
+         * This example shows where a pre requisite value is required to determine how the parser should proceed.
     		 */
     		GENERATIONS(GENERATION.create(GENERATIONS_COUNT, "Generations").flags(
     					DONT_DISPLAY.MASK), new AssertVersionGTEQ(68)),
@@ -159,7 +157,7 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		}	
     	}
         
-        // 
+      // Flags have mask and ordinal value for BitSet extraction and use.
     	public enum PackageFlags {
     		ALLOW_DOWNLOAD("Allow Downloading of Package"),
     		CLIENT_OPTIONAL("Optional for Clients"),
@@ -186,20 +184,17 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		return 8;
     	}	
     }
-    
-
-
 
 Installation
 -----
 
-Import code into eclipse as a new project. No settings are supplied just source code.
+Import code into eclipse as a java project. 
 
 Licence
 -----
 
-LGPL (currently under review)
-
+Apache License, Version 2.0
+http://www.apache.org/licenses/
 
 
 
