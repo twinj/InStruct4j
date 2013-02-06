@@ -51,9 +51,9 @@ Use
 
 This example roughly emulates the structure of an Unreal engine upk package file.
 
-    public class FileHeader extends MyATStruct<UHeader.Property> {
+    public class FileHeader extends MyExtendedATStruct<FileHeader.Property> {
         	
-    	public enum Property implements PStruct.Accessor {
+    	public enum Property implements MyExtendedATStruct.Accessor {
     		
     		/**
     		 * File Version: >= 249
@@ -175,7 +175,11 @@ This example roughly emulates the structure of an Unreal engine upk package file
     		}
     	}
     	
-    	public UHeader() {
+      // A struct size can be indeterminate as is the case here. 
+      // It can also be static. If your struct has a static size take advantage
+      // of the super class paramater for size.
+      // Arrays, string and other similar datums can make an array size indeterminate.
+    	public FileHeader() {
     		super(Property.class);
     	}
     	
