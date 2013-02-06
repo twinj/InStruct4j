@@ -1,7 +1,9 @@
 InStruct4j
 ==========
 
-A universal parser for mapping bytes from files, buffers or arrays and then displaying that information via the enumerated maps. This iperfect for creating parser strategies for any file which has a tracaeable structure: E.g. Windows PE files, COFF, Package files.
+A universal parser for mapping bytes from files, buffers or arrays and then displaying that information via the 
+enumerated maps. This is perfect for creating parser strategies for any file which has a tracaeable/reverse capable
+structure: E.g. Windows PE files, COFF, Game Package files.
 
 To use the parser you must subclass the following classes.
 
@@ -12,10 +14,19 @@ Currently only support little endian.
   - ATScript - an inner datum/struct to implement a byte array.
   - TParser - the basic parsing engine. 
 
-This engine allows you to create parsing strategies via the [TParser.Strategy] interface. Several parsers can be created for several files or arrays. A TParser caches whichever values you need in between stream use.
+This engine allows you to create parsing strategies via the [TParser.Strategy] interface. Several parsers can be created
+for several files or arrays. A TParser caches whichever values you need in between stream use. 
+
+Each datum or variable read can be tested and edited for individual behaviours.
 
 Features
 -----
+> Java 7
+> Datum Precondition asserting
+> Datum Postcondition asserting
+> Datum flags which switch display, caching and memory behaviour.
+> Handles many data types and sizes; E.g. DWORD, UINT32, WORD, BYTE, QWORD, ULONG64, FLAGS, ENUMS... if a datatype does 
+not exist it can be created very easily following the design pattern.
 
 Below is an example which showcases most of the features.  A proper feature set will be released as the parser becomes more specialised. 
 
