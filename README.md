@@ -5,26 +5,6 @@ InStruct is a java utility for describing data structures and bytes from files, 
 that information via enumerated maps using console or Swing. InStruct allows you to create parser strategies for any 
 file which has a trace/reverse capable structure: E.g. Windows PE files, COFF, Game Package files.
 
-To use the parser you must subclass the following classes.
-
-Currently only supports little endian byte order.
-  - TParser - the basic parsing engine. 
-
-  [recommended]
-  - ATStruct - supports the creation of a parse strategy.
-  - ATGuuid - an inner datum/struct to support the creation of Guuid.
-  - ATScript - an inner datum/struct to implement a byte array.
-
-This engine allows you to create several parsing strategies via the [TParser.Strategy] interface for your different
-among your particular file types. 
-
-Several parsers can be created instantiated for several files or arrays. A TParser caches whichever values you need in 
-between each stream use. 
-
-The stream is automatically closed during each session.
-
-Each [Datum] or variable read can be tested and edited for individual behaviours.
-
 Important Features
 -----
 > - Written using Java 7 auto closeable interfaces and NIO.
@@ -34,6 +14,16 @@ Important Features
 > - Datum flags which switch; display, caching and memory behaviour.
 > - Handles many data types and sizes; E.g. DWORD, UINT32, WORD, BYTE, QWORD, ULONG64, FLAGS, ENUMS... if a datatype 
 does not exist it can be created very easily following the [IDatum] design pattern.
+
+Overall this engine allows you to create several parsing strategies via the [TParser.Strategy] interface for your 
+different among your particular file types. 
+
+Several parsers can be created instantiated for several files or arrays. A TParser caches whichever values you need in 
+between each stream use. 
+
+The stream is automatically closed during each session.
+
+Each [Datum] or variable read can be tested and edited for individual behaviours.
 
 Below is an example which showcases most of the features.  A more complete feature set will be released as the parser 
 becomes more specialised. 
@@ -57,6 +47,22 @@ It is considered best practice to extends ATStruct in an abtsract class so you c
 
 Use
 ---
+
+To use the parser you must subclass the following classes.
+
+Currently only supports little endian byte order.
+  
+  [must]
+  * TParser - the basic parsing engine starting point. It is through this class which you will implement a 
+  SeekableByteBuffer to enable the parsing.
+
+  [recommended]
+  * ATStruct - supports the creation of a parse strategy. It is through this class which you will be able to add your 
+  data structure specifics which relate to all your data structures. This class is super to all enumerations.
+
+  [optional]
+  * ATGuuid - an inner datum/struct to support the creation of Guuid.
+  * ATScript - an inner datum/struct to implement a byte array: The begninnings of a plugin architecture.
 
 This example roughly emulates the structure of an Unreal engine upk package file.
 
