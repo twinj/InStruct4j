@@ -2,7 +2,7 @@ InStruct4j
 ==========
 
 InStruct is a java utility for describing data structures and bytes from files, buffers or arrays and then displaying 
-that information via enumerated maps using console or Swing. InStruct allows you to create parser strategies for any 
+that information via enumerated maps using text or Swing. InStruct allows you to create parser strategies for any 
 file which has a trace/reverse capable structure: E.g. Windows PE files, COFF, Game Package files.
 
 Important Features
@@ -13,17 +13,14 @@ Important Features
 > - Datum Pre requisties can be plugged in
 > - Datum flags which switch; display, caching and memory behaviour.
 > - Handles many data types and sizes; E.g. DWORD, UINT32, WORD, BYTE, QWORD, ULONG64, FLAGS, ENUMS... if a datatype 
-does not exist it can be created very easily following the [IDatum] design pattern.
+does not exist it can be created very easily following the [IDatum] design pattern and built in interfaces.
 
-Overall this engine allows you to create several parsing strategies via the [TParser.Strategy] interface for your 
-different among your particular file types. 
-
-Several parsers can be created instantiated for several files or arrays. A TParser caches whichever values you need in 
+Several parsers can be instantiated for several files or arrays. A TParser caches whichever values you need in 
 between each stream use. 
 
 The stream is automatically closed during each session.
 
-Each [Datum] or variable read can be tested and edited for individual behaviours.
+Each [Datum] or variable read can be tested and edited for individual behaviours and assertions
 
 Below is an example which showcases most of the features.  A more complete feature set will be released as the parser 
 becomes more specialised. 
@@ -33,17 +30,8 @@ Future
 
 * Currently working on [JList] and [JTable] java Swing models to display an InStruct. 
 
-* Two example projects which use this engine will be released. One for Windows PE file format 
+* Two example projects which use this utility will be released. One for Windows PE file format 
 and Unreal's UPK file format.
-
-Example
----
-
-The example is of a class which extends [ATStruct]. This class creates a plan from which the parser can work to parse a file and put the values in an EnumMap. Whether or not the bytes are saved or displayable is set up by special flags which are set in the Property Enum.
-
-Each ATStruct<?> must create its own Enum which implements ATStruct.Accessor. The accessor allows the higher level classes to manipulate some data from the lower level class.
-
-It is considered best practice to extends ATStruct in an abtsract class so you can add any of your own functionality. Assume that this is done.
 
 Use
 ---
@@ -63,6 +51,15 @@ Currently only supports little endian byte order.
   [optional]
   * ATGuuid - an inner datum/struct to support the creation of Guuid.
   * ATScript - an inner datum/struct to implement a byte array: The begninnings of a plugin architecture.
+
+Example
+---
+
+The example is of a class which extends [ATStruct]. This class creates a plan from which the parser can work to parse a file and put the values in an EnumMap. Whether or not the bytes are saved or displayable is set up by special flags which are set in the Property Enum.
+
+Each ATStruct<?> must create its own Enum which implements ATStruct.Accessor. The accessor allows the higher level classes to manipulate some data from the lower level class.
+
+It is considered best practice to extends ATStruct in an abtsract class so you can add any of your own functionality. Assume that this is done.
 
 This example roughly emulates the structure of an Unreal engine upk package file.
 
