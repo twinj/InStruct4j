@@ -1,13 +1,13 @@
 InStruct4j
 ==========
 
-A universal parser for mapping bytes from files, buffers or arrays and then displaying that information via the 
+A universal parser for descriping data structures and bytes from files, buffers or arrays and then displaying that information via the 
 enumerated maps. This is perfect for creating parser strategies for any file which has a tracaeable/reverse capable
 structure: E.g. Windows PE files, COFF, Game Package files.
 
 To use the parser you must subclass the following classes.
 
-Currently only support little endian.
+Currently only support little endian byte order.
 
   - ATStruct - supports the creation of a parse strategy.
   - ATGuuid - an inner datum/struct to support the creation of Guuid.
