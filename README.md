@@ -1,25 +1,31 @@
 InStruct4j
 ==========
 
-A universal parser for descriping data structures and bytes from files, buffers or arrays and then displaying that information via the 
-enumerated maps. This is perfect for creating parser strategies for any file which has a tracaeable/reverse capable
-structure: E.g. Windows PE files, COFF, Game Package files.
+InStruct is a java utility for describing data structures and bytes from files, buffers or arrays and then displaying 
+that information via enumerated maps using console or Swing. InStruct allows you to create parser strategies for any 
+file which has a trace/reverse capable structure: E.g. Windows PE files, COFF, Game Package files.
 
 To use the parser you must subclass the following classes.
 
-Currently only support little endian byte order.
+Currently only supports little endian byte order.
+  - TParser - the basic parsing engine. 
 
+  [recommended]
   - ATStruct - supports the creation of a parse strategy.
   - ATGuuid - an inner datum/struct to support the creation of Guuid.
   - ATScript - an inner datum/struct to implement a byte array.
-  - TParser - the basic parsing engine. 
 
-This engine allows you to create parsing strategies via the [TParser.Strategy] interface. Several parsers can be created
-for several files or arrays. A TParser caches whichever values you need in between stream use. 
+This engine allows you to create several parsing strategies via the [TParser.Strategy] interface for your different
+among your particular file types. 
+
+Several parsers can be created instantiated for several files or arrays. A TParser caches whichever values you need in 
+between each stream use. 
+
+The stream is automatically closed during each session.
 
 Each [Datum] or variable read can be tested and edited for individual behaviours.
 
-Features
+Important Features
 -----
 > - Written using Java 7 auto closeable interfaces and NIO.
 > - Datum Precondition asserting
@@ -35,7 +41,10 @@ becomes more specialised.
 Future
 ---
 
-Currently working on [JList] and [JTable] java Swing models to display an InStruct. 
+* Currently working on [JList] and [JTable] java Swing models to display an InStruct. 
+
+* Two example projects which use this engine will be released. One for Windows PE file format 
+and Unreal's UPK file format.
 
 Example
 ---
